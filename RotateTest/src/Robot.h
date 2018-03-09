@@ -22,7 +22,8 @@ private:
 	int state;
 	double rots;
 	double initAngle;
-	double trackwidth;
+	double trackwidth_front;
+	double trackwidth_back;
 	double wd;
 	double tpr;
 };

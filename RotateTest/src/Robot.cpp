@@ -46,12 +46,16 @@ void Robot::TeleopPeriodic() {
 		SetLeftSpeed(0);
 		SetRightSpeed(0);
 
-		double dist_native = (fabs(RobotMap::swerveSubsystemFLDriveTalon->GetSelectedSensorPosition(0)) + fabs(RobotMap::swerveSubsystemFRDriveTalon->GetSelectedSensorPosition(0))) / 2.0;
-		double dist = (dist_native / tpr) * M_PI * wd;
+		double dist_native_front = (fabs(RobotMap::swerveSubsystemFLDriveTalon->GetSelectedSensorPosition(0)) + fabs(RobotMap::swerveSubsystemFRDriveTalon->GetSelectedSensorPosition(0))) / 2.0;
+		double dist_native_back = (fabs(RobotMap::swerveSubsystemBLDriveTalon->GetSelectedSensorPosition(0)) + fabs(RobotMap::swerveSubsystemBRDriveTalon->GetSelectedSensorPosition(0))) / 2.0;
+		double dist_front = (dist_native_front / tpr) * M_PI * wd;
+		double dist_back = (dist_native_back / tpr) * M_PI * wd;
 
-		trackwidth = dist / (rots * M_PI);
+		trackwidth_front = dist_front / (rots * M_PI);
+		trackwidth_back = dist_back / (rots * M_PI);
 
-		std::cout << "EMPIRICAL TRACKWIDTH: " << trackwidth << " METERS" << std::endl;
+		std::cout << "EMPIRICAL TRACKWIDTH FRONT: " << trackwidth_front << " METERS" << std::endl;
+		std::cout << "EMPIRICAL TRACKWIDTH BACK: " << trackwidth_back << " METERS" << std::endl;
 		state = 3;
 	}
 }
