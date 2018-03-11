@@ -29,6 +29,7 @@ void Robot::TeleopInit() {
 	initAngle = RobotMap::robotImu->GetAngle();
 	wd = .0635;
 	tpr = 26214;
+	state=1;
 }
 
 void Robot::TeleopPeriodic() {
@@ -36,8 +37,8 @@ void Robot::TeleopPeriodic() {
 
 	rots = (fabs(RobotMap::robotImu->GetAngle()) - fabs(initAngle)) / 360.0;
 	if(state == 1) {
-		SetLeftSpeed(.5);
-		SetRightSpeed(-.5);
+		SetLeftSpeed(1);
+		SetRightSpeed(-1);
 		if(rots > 10) {
 			state = 2;
 		}
@@ -71,8 +72,8 @@ void Robot::SetLeftSpeed(double tempSpeed)
 }
 
 void Robot::SetRightSpeed(double tempSpeed) {
-	RobotMap::swerveSubsystemFLDriveTalon->Set(ControlMode::PercentOutput, tempSpeed);
-	RobotMap::swerveSubsystemBLDriveTalon->Set(ControlMode::PercentOutput, tempSpeed);
+	RobotMap::swerveSubsystemFRDriveTalon->Set(ControlMode::PercentOutput, tempSpeed);
+	RobotMap::swerveSubsystemBRDriveTalon->Set(ControlMode::PercentOutput, tempSpeed);
 }
 
 START_ROBOT_CLASS(Robot);
